@@ -1,53 +1,254 @@
-# Interview Coding Challenge
+# Interview Coding Challenge - Movie Application
 
-Step 1 of the Interview process. Follow the instructions below to complete this portion of the interview. 
-Please note, although we do not set a time limit for this challenge, we recommend completing it as soon as possible as we evaluate candidates on a first come, first serve basis...
+A full-stack movie application showcasing popular movies from TMDB, with search functionality and detailed movie information pages.
 
-If you have any questions, please feel free to email support@thezig.io. We will do our best to clarify any issues you come across.
+## 🎬 Project Overview
 
+This is a complete implementation of the interview coding challenge with:
+- **Frontend:** React 18 with TypeScript, Bootstrap 5, and modern routing
+- **Backend:** ASP.NET Core 10 (.NET 10) with Swagger documentation
+- **Database:** TMDB API for movie data
+- **Architecture:** Repository Pattern, Dependency Injection, Singleton HttpClient
 
-## Prerequisites:
+### ✨ Features Implemented
 
-1. A Text Editor - We recommend Visual Studio Code for the ClientSide code, its lightweight, powerful and Free! (https://code.visualstudio.com/)
-2. An IDE Visual Studio Community for the ServerSide code, (https://visualstudio.microsoft.com/vs/community/)
-3. You will need the .NET Core SDK in order to run the console application. (microsoft.com/net/core#windowscmd)
-4. Git - For source control and committing your final solution to a new private repo (https://git-scm.com/downloads) 
+✅ Homepage listing top 20 popular movies  
+✅ Search functionality by movie title  
+✅ Movie detail pages with comprehensive information  
+✅ Poster images, ratings, genres, runtime  
+✅ Links to official movie websites  
+✅ Full CORS support  
+✅ Swagger UI API documentation  
+✅ Unit tests for server-side controllers  
+✅ TypeScript for type safety  
+✅ Bootstrap 5 responsive design  
+✅ Dependency Injection with IoC  
+✅ Repository pattern for data access  
 
-    a. If you're not very familiar with git commands, here's a helpful cheatsheet (https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
-        
-## Instructions
+## 🚀 Quick Start
 
-- Clone this repo locally using git clone
-- cd into ./clientside/zig-movie-app directory for client-side code
-- cd into ./serverside for web api server-side code
-- Install dependencies using npm install (client side)
-- Use Nuget Package Manager to restore packages (server-side)
-- Obtain api key from https://developers.themoviedb.org
-- Export api key environment variable: export API_KEY=${your_api_key}
-- Start webpack using npm start
-- Navigate to app in browser
+### Prerequisites
+- Node.js 16+
+- .NET SDK 10.0.103
+- TMDB API Key from https://www.themoviedb.org/settings/api
 
-Once the challenge is complete, please push the code up to a new private repo and grant access to the following email addresses for code review 
+### Backend Setup
+```bash
+cd serverside
+# Add your TMDB API key to appsettings.json
+dotnet restore
+dotnet run
+```
+Server runs on `https://localhost:5001`  
+Swagger UI: `https://localhost:5001`
 
-        - chilch  
-        - musukwamoshi@gmail.com    
-        - fridaynyambe9@gmail.com
-        - thomasmunguya@gmail.com
+### Frontend Setup
+```bash
+cd clientside/zig-movie-app
+npm install
+npm start
+```
+App opens on `http://localhost:3000`
 
-## Submission
+## 📋 Detailed Setup Guide
 
-***Then fill in this [form](https://forms.cloud.microsoft/r/82xEn4LuNt) with a link to your private repo and your email.***
+For complete setup instructions, environment variables, architecture details, and troubleshooting, see [SETUP_GUIDE.md](./SETUP_GUIDE.md).
 
-## Requirements
+## 🏗️ Project Structure
 
-1. Create a  homepage that will list popular movies from the API. 
-2. Add a search bar that can search for movies by title.
-3. The list should contain links for each movie title to navigate to an individual detail page with more info for each movie. 
-4. On the detail page,display the poster image,the title should link to the movie's official site and a add a short description of the movie.
-5. All the data should be retrieved from endpoints exposed via the server-side web api
-6. Your API routes should be as follows:
-    1. api/popular - Filters top 20 most popular movies (for homepage list of popular movies)
-    2. api/search?query=birdbox - Returns movies where the title matches parts of the query string (for the search field)
+```
+interview-coding-challenge/
+├── clientside/zig-movie-app/      # React TypeScript Frontend
+│   ├── public/                    # Static files
+│   ├── src/
+│   │   ├── components/           # React components
+│   │   │   ├── HomePage.tsx
+│   │   │   ├── SearchBar.tsx
+│   │   │   ├── SearchResultsPage.tsx
+│   │   │   └── MovieDetail.tsx
+│   │   ├── services/             # API service
+│   │   │   └── MovieService.ts
+│   │   ├── types/                # TypeScript interfaces
+│   │   │   └── Movie.ts
+│   │   ├── App.tsx              # Main app with routing
+│   │   └── index.tsx
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env
+│
+├── serverside/                    # ASP.NET Core Backend
+│   ├── Controllers/
+│   │   └── MoviesController.cs   # API endpoints
+│   ├── Models/
+│   │   └── Movie.cs             # Data models
+│   ├── Services/
+│   │   ├── ITmdbService.cs
+│   │   └── TmdbService.cs       # Singleton HttpClient
+│   ├── Repositories/
+│   │   ├── IMovieRepository.cs
+│   │   └── MovieRepository.cs   # Repository pattern
+│   ├── Tests/
+│   │   └── MoviesControllerTests.cs
+│   ├── Startup.cs               # DI & CORS config
+│   ├── Program.cs
+│   ├── appsettings.json
+│   ├── global.json
+│   └── serverside.csproj
+│
+├── SETUP_GUIDE.md               # Detailed setup instructions
+└── README.md                    # This file
+```
+
+## 📡 API Endpoints
+
+### GET /api/popular
+Returns top 20 most popular movies
+```bash
+curl https://localhost:5001/api/popular
+```
+
+### GET /api/search?query={query}
+Searches movies by title
+```bash
+curl "https://localhost:5001/api/search?query=avatar"
+```
+
+### GET /api/movie/{id}
+Returns details for a specific movie
+```bash
+curl https://localhost:5001/api/movie/550
+```
+
+## 🛠️ Design Patterns & Architecture
+
+### Singleton Pattern
+HttpClient is registered as a singleton to efficiently reuse connections and reduce overhead.
+
+### Dependency Injection
+All services use constructor-based dependency injection for loose coupling and testability.
+
+### Repository Pattern
+MovieRepository abstracts the data access layer, providing a clean interface for controllers.
+
+### CORS Configuration
+Enabled for all origins to allow frontend to communicate with backend.
+
+## 🧪 Testing
+
+### Run Backend Tests
+```bash
+cd serverside
+dotnet test
+```
+
+Tests include:
+- Popular movies retrieval
+- Movie search functionality
+- Movie detail fetching
+- Error handling and edge cases
+
+### Run Frontend Tests
+```bash
+cd clientside/zig-movie-app
+npm test
+```
+
+## 📚 Technology Stack
+
+### Frontend
+- React 18
+- TypeScript
+- React Router v6 for navigation
+- Bootstrap 5 for styling
+- Axios for HTTP requests
+
+### Backend
+- ASP.NET Core 10 (.NET 10)
+- C# 12
+- Swashbuckle for Swagger/OpenAPI
+- Xunit for testing
+- Moq for mocking
+
+## 🔐 Configuration
+
+### Environment Variables
+
+**Client-side (.env):**
+```
+REACT_APP_API_URL=https://localhost:5001/api
+```
+
+**Server-side (appsettings.json):**
+```json
+{
+  "TmdbApiKey": "YOUR_TMDB_API_KEY"
+}
+```
+
+## 📖 Documentation
+
+Full API documentation is available via Swagger UI at `https://localhost:5001` when the server is running.
+
+## ⚠️ Requirements Met
+
+✅ Homepage listing popular movies from TMDB API  
+✅ Search bar that searches for movies by title  
+✅ Links for each movie title to navigate to detail page  
+✅ Detail page with poster, title (linked to official site), and description  
+✅ All data retrieved from server-side API endpoints  
+✅ Correct API routes:
+   - `api/popular` - Top 20 most popular movies
+   - `api/search?query=...` - Search movies by title
+   - `api/movie/{id}` - Get movie details  
+✅ Unit tests for server-side controllers  
+✅ TypeScript for client-side code  
+✅ Bootstrap for styling  
+✅ CORS enabled  
+✅ Singleton HttpClient pattern  
+✅ Dependency Injection throughout  
+✅ Repository Pattern for data access  
+✅ Swagger UI for API documentation  
+
+## 🐛 Troubleshooting
+
+**CORS Errors:**
+- Ensure server is running on `https://localhost:5001`
+- Check `.env` has correct API URL
+- Verify CORS is enabled in Startup.cs
+
+**API Key Issues:**
+- Get key from https://www.themoviedb.org/settings/api
+- Add to `appsettings.json`
+- Restart server after changes
+
+**Port Already in Use:**
+- Modify `launchSettings.json` for server
+- Set `PORT` environment variable for client
+
+For more troubleshooting, see [SETUP_GUIDE.md](./SETUP_GUIDE.md#troubleshooting).
+
+## 📝 Prerequisites
+
+1. Visual Studio Code (client-side)
+2. Visual Studio Community or VS Code with C# support (server-side)
+3. .NET SDK 10.0.103
+4. Node.js 16+
+5. Git
+6. TMDB API Key
+
+## 🔗 Useful Links
+
+- [TMDB API Documentation](https://developer.themoviedb.org/docs)
+- [.NET Documentation](https://docs.microsoft.com/en-us/dotnet/)
+- [React Documentation](https://react.dev)
+- [Bootstrap Documentation](https://getbootstrap.com/docs)
+- [ASP.NET Core Documentation](https://docs.microsoft.com/en-us/aspnet/core/)
+
+---
+
+**Last Updated:** 2026-02-24  
+**Status:** ✅ Complete
+
     3. /api/movie/1145 - Returns a single movie by Movie Id (for use by the detail page)
 7. Add Unit tests for the Controllers and Repos
 8. Client side code should be written in TypeScript
