@@ -37,11 +37,14 @@ namespace serverside.Tests
                 .ReturnsAsync(movies);
 
             // Act
-            var result = await _controller.GetPopularMovies();
+            var actionResult = await _controller.GetPopularMovies();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Value.Count);
+            var okResult = actionResult.Result as Microsoft.AspNetCore.Mvc.OkObjectResult;
+            Assert.NotNull(okResult);
+            var returned = okResult.Value as List<Movie>;
+            Assert.NotNull(returned);
+            Assert.Equal(2, returned.Count);
             _mockRepository.Verify(r => r.GetPopularMoviesAsync(), Times.Once);
         }
 
@@ -87,12 +90,14 @@ namespace serverside.Tests
                 .ReturnsAsync(movies);
 
             // Act
-            var result = await _controller.SearchMovies(query);
+            var actionResult = await _controller.SearchMovies(query);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.NotNull(result.Value);
-            Assert.Single(result.Value);
+            var okResult = actionResult.Result as Microsoft.AspNetCore.Mvc.OkObjectResult;
+            Assert.NotNull(okResult);
+            var returned = okResult.Value as List<Movie>;
+            Assert.NotNull(returned);
+            Assert.Single(returned);
             _mockRepository.Verify(r => r.SearchMoviesAsync(query), Times.Once);
         }
 
@@ -118,12 +123,14 @@ namespace serverside.Tests
                 .ReturnsAsync(movie);
 
             // Act
-            var result = await _controller.GetMovieById(movieId);
+            var actionResult = await _controller.GetMovieById(movieId);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.NotNull(result.Value);
-            Assert.Equal(movieId, result.Value.Id);
+            var okResult = actionResult.Result as Microsoft.AspNetCore.Mvc.OkObjectResult;
+            Assert.NotNull(okResult);
+            var returned = okResult.Value as Movie;
+            Assert.NotNull(returned);
+            Assert.Equal(movieId, returned.Id);
             _mockRepository.Verify(r => r.GetMovieByIdAsync(movieId), Times.Once);
         }
 

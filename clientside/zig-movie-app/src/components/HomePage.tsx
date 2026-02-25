@@ -71,11 +71,7 @@ const HomePage: React.FC = () => {
                 />
               )}
               <div className="card-body">
-                <h5>
-                  <Link to={`/movie/${movie.id}`} className="card-title">
-                    {movie.title}
-                  </Link>
-                </h5>
+                <h5 className="card-title">{movie.title}</h5>
                 <p className="card-text text-muted">{movie.release_date}</p>
                 <p className="card-text">
                   <small>⭐ {movie.vote_average}/10</small>
