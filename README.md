@@ -61,7 +61,7 @@ Once the challenge is complete, please push the code up to a new private repo an
 ## Tech
 
 The technologies used to build this app are: 
-Client-Side - ReactJS, Vite, TypeScript
+Client-Side - ReactJS, Webpack, TypeScript
 Server-Side - .NET Core Web Api (.NET 8 or greater)
 
 ## Bonus Points
