@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import MovieService from '../services/MovieService';
-import { Movie } from '../types/Movie';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import MovieService from "../services/MovieService";
+import { Movie } from "../types/Movie";
+
+const FALLBACK_POSTER_URL =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/960px-IMDB_Logo_2016.svg.png";
 
 const HomePage: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -14,7 +17,7 @@ const HomePage: React.FC = () => {
         const data = await MovieService.getPopularMovies();
         setMovies(data);
       } catch (err) {
-        setError('Failed to load popular movies');
+        setError("Failed to load popular movies");
         console.error(err);
       } finally {
         setLoading(false);
@@ -60,15 +63,26 @@ const HomePage: React.FC = () => {
                   alt={movie.title}
                 />
               )}
+              {!movie.poster_path && (
+                <img
+                  src={FALLBACK_POSTER_URL}
+                  className="card-img-top object-fit-contain"
+                  alt="IMDB logo"
+                />
+              )}
               <div className="card-body">
-                <h5 className="card-title">{movie.title}</h5>
+                <h5>
+                  <Link to={`/movie/${movie.id}`} className="card-title">
+                    {movie.title}
+                  </Link>
+                </h5>
                 <p className="card-text text-muted">{movie.release_date}</p>
                 <p className="card-text">
                   <small>⭐ {movie.vote_average}/10</small>
                 </p>
                 <Link
                   to={`/movie/${movie.id}`}
-                  className="btn btn-primary btn-sm"
+                  className="btn btn-danger btn-sm"
                 >
                   View Details
                 </Link>

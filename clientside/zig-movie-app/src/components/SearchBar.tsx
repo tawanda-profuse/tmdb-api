@@ -26,7 +26,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button className="btn btn-outline-primary" type="submit">
+      <button className="btn btn-outline-danger" type="submit">
         Search
       </button>
     </form>

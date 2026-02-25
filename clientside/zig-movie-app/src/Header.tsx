@@ -4,7 +4,7 @@ interface IProps {
   name?: string;
 }
 
-const Header: React.SFC<IProps> = (props: IProps) => (
+const Header: React.FC<IProps> = (props: IProps) => (
   <h1>Hello, {props.name}! Welcome to THE ZIG Coding Challenge.</h1>
 );
 

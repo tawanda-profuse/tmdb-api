@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import MovieService from '../services/MovieService';
-import { Movie } from '../types/Movie';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import MovieService from "../services/MovieService";
+import { Movie } from "../types/Movie";
 
 const MovieDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,11 +14,11 @@ const MovieDetail: React.FC = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const movieId = parseInt(id || '0');
+        const movieId = parseInt(id || "0");
         const data = await MovieService.getMovieById(movieId);
         setMovie(data);
       } catch (err) {
-        setError('Failed to load movie details');
+        setError("Failed to load movie details");
         console.error(err);
       } finally {
         setLoading(false);
@@ -42,20 +44,20 @@ const MovieDetail: React.FC = () => {
     return (
       <div className="container my-5">
         <div className="alert alert-danger" role="alert">
-          {error || 'Movie not found'}
+          {error || "Movie not found"}
         </div>
-        <Link to="/" className="btn btn-secondary">
+        <button onClick={() => navigate(-1)} className="btn btn-secondary">
           Back to Home
-        </Link>
+        </button>
       </div>
     );
   }
 
   return (
     <div className="container my-5">
-      <Link to="/" className="btn btn-secondary mb-4">
+      <button onClick={() => navigate(-1)} className="btn btn-secondary mb-4">
         ← Back to Home
-      </Link>
+      </button>
 
       <div className="row">
         <div className="col-md-4">
@@ -66,11 +68,22 @@ const MovieDetail: React.FC = () => {
               alt={movie.title}
             />
           )}
+          {!movie.poster_path && (
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/960px-IMDB_Logo_2016.svg.png"
+              className="img-fluid rounded"
+              alt="IMDB logo"
+            />
+          )}
         </div>
         <div className="col-md-8">
           <h1>
             {movie.homepage ? (
-              <a href={movie.homepage} target="_blank" rel="noopener noreferrer">
+              <a
+                href={movie.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {movie.title}
               </a>
             ) : (
@@ -95,13 +108,13 @@ const MovieDetail: React.FC = () => {
 
           {movie.genres && movie.genres.length > 0 && (
             <p>
-              <strong>Genres:</strong>{' '}
-              {movie.genres.map((g) => g.name).join(', ')}
+              <strong>Genres:</strong>{" "}
+              {movie.genres.map((g) => g.name).join(", ")}
             </p>
           )}
 
           <h3 className="mt-4">Overview</h3>
-          <p>{movie.overview || 'No description available'}</p>
+          <p>{movie.overview || "No description available"}</p>
 
           {movie.popularity && (
             <p className="text-muted">

@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import SearchResultsPage from './components/SearchResultsPage';
 import MovieDetail from './components/MovieDetail';
 import SearchBar from './components/SearchBar';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 const App: React.FC = () => {
   const [searchPerformed, setSearchPerformed] = useState(false);
@@ -20,7 +21,7 @@ const App: React.FC = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              🎬 Movie App
+              🎬 Movie Hub
             </a>
             <button
               className="navbar-toggler"
@@ -45,8 +46,10 @@ const App: React.FC = () => {
         </Routes>
 
         <footer className="bg-dark text-light text-center py-4 mt-5">
-          <p>&copy; 2024 Movie App. Data provided by TMDB.</p>
+          <p>&copy; {new Date().getFullYear()} Movie App. Data provided by TMDB.</p>
         </footer>
+
+        <ScrollToTopButton />
       </div>
     </Router>
   );
