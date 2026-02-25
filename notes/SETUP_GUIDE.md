@@ -4,15 +4,15 @@ This is a full-stack movie application that showcases popular movies, allows sea
 
 **Tech Stack:**
 
-- **Frontend:** React 18 with TypeScript, Bootstrap 5, React Router v6, Axios
-- **Backend:** ASP.NET Core 10 (.NET 10) with Swagger/OpenAPI
+- **Frontend:** React 18 with TypeScript, Bootstrap 5, React Router v6, Axios.
+- **Backend:** ASP.NET Core 10 (.NET 10) with Swagger/OpenAPI.
 
 ## System Requirements
 
-- Windows, macOS, or Linux
-- Node.js 16+ (for frontend)
-- .NET SDK 10.0.103 (for backend)
-- TMDB API Key (register at https://www.themoviedb.org/settings/api)
+- Windows, macOS, or Linux.
+- Node.js 16+ (for frontend).
+- .NET SDK 10.0.103 (for backend).
+- TMDB API Key (register at https://www.themoviedb.org/settings/api).
 
 ## Setup Instructions
 
@@ -55,14 +55,17 @@ The server will start on `https://localhost:5001` by default.
 **Access Swagger UI:** Open `https://localhost:5001` in your browser to see the API documentation.
 
 #### Step 1.3: Verify API Endpoints
+
 Test the endpoints using Swagger UI:
-- **GET /api/popular** - Get top 20 popular movies
-- **GET /api/search?query=birdbox** - Search movies by title
-- **GET /api/movie/{id}** - Get a specific movie by ID
+
+- **GET /api/popular** - Get top 20 popular movies.
+- **GET /api/search?query=birdbox** - Search movies by title.
+- **GET /api/movie/{id}** - Get a specific movie by ID.
 
 ### 2. Frontend Setup (Client-side)
 
 #### Step 2.1: Install Dependencies
+
 ```bash
 cd clientside/zig-movie-app
 npm install
