@@ -22,35 +22,13 @@ namespace serverside.Services
             _httpClient = httpClient;
             _logger = logger;
 
-            // Try configuration key first (appsettings.json), then common environment variable names.
-            var cfgKey = configuration["TmdbApiKey"];
-            var envKey1 = Environment.GetEnvironmentVariable("TMDB_API_KEY");
-            var envKey2 = Environment.GetEnvironmentVariable("TmdbApiKey");
-            var envKey3 = configuration["TMDB_API_KEY"]; // in case env vars were loaded into IConfiguration under this name
-
-            _apiKey = cfgKey ?? envKey1 ?? envKey2 ?? envKey3;
-
-            if (!string.IsNullOrEmpty(cfgKey))
-            {
-                _logger?.LogInformation("TMDB API key found in configuration (TmdbApiKey).");
-            }
-            else if (!string.IsNullOrEmpty(envKey1))
-            {
-                _logger?.LogInformation("TMDB API key found in environment variable TMDB_API_KEY.");
-            }
-            else if (!string.IsNullOrEmpty(envKey2))
-            {
-                _logger?.LogInformation("TMDB API key found in environment variable TmdbApiKey.");
-            }
-            else if (!string.IsNullOrEmpty(envKey3))
-            {
-                _logger?.LogInformation("TMDB API key found in configuration under TMDB_API_KEY.");
-            }
+            _apiKey = configuration["TmdbApiKey"];
 
             if (string.IsNullOrEmpty(_apiKey))
             {
-                _logger?.LogError("TMDB API key not found in configuration or environment.");
-                throw new InvalidOperationException("TMDB API key is not configured. Set it in appsettings.json, user secrets, or TMDB_API_KEY environment variable.");
+                throw new InvalidOperationException(
+                    "TMDB API key is not configured. Set it via User Secrets or environment variables."
+                );
             }
         }
 
