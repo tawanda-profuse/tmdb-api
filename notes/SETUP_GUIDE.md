@@ -1,6 +1,4 @@
-# Movie App - Complete Setup Guide
-
-## Overview
+# Setup Guide
 
 This is a full-stack movie application that showcases popular movies, allows searching by title, and displays detailed information about each movie. The application uses the TMDB (The Movie Database) API as the data source.
 
@@ -23,7 +21,7 @@ This is a full-stack movie application that showcases popular movies, allows sea
 #### Step 1.1: Configure TMDB API Key
 
 1. Get your TMDB API key from https://www.themoviedb.org/settings/api
-2. Initialize User Secrets by first navigating in the `serverside` folder:
+2. Initialize User Secrets by first navigating to the `serverside` folder:
 
 ```bash
 cd serverside
@@ -123,8 +121,10 @@ serverside/
 │   └── MovieRepository.cs
 ├── Controllers/          # API endpoints
 │   └── MoviesController.cs
+│   └── ValuesController.cs
 ├── Tests/                # Unit tests
 │   └── MoviesControllerTests.cs
+│   └── MoviesRepositoryTests.cs
 ├── Startup.cs            # DI and middleware configuration
 └── Program.cs            # Entry point
 ```
