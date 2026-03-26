@@ -67,7 +67,7 @@ Test the endpoints using Swagger UI:
 #### Step 2.1: Install Dependencies
 
 ```bash
-cd clientside/zig-movie-app
+cd clientside
 npm install
 ```
 
@@ -135,7 +135,7 @@ serverside/
 ### Client-side Structure
 
 ```
-clientside/zig-movie-app/src/
+clientside/src/
 ├── components/           # React components
 │   ├── HomePage.tsx
 │   ├── SearchBar.tsx
@@ -160,7 +160,7 @@ dotnet test
 ### Frontend Testing
 
 ```bash
-cd clientside/zig-movie-app
+cd clientside
 npm test
 ```
 
