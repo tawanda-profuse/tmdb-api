@@ -1,7 +1,5 @@
 # TMDB Movie Database
 
-## Setup Guide
-
 This is a full-stack movie application that showcases popular movies, allows searching by title, and displays detailed information about each movie. The application uses the TMDB (The Movie Database) API as the data source.
 
 **Tech Stack:**
